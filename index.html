@@ -2,7 +2,7 @@
 <html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>La Vague — Restaurant</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Tajawal:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
@@ -99,9 +99,9 @@
     .wrapper {
       position: relative;
       z-index: 2;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 20px;
     }
 
     /* ===== NAV ===== */
@@ -111,61 +111,58 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 18px 40px;
+      padding: 14px 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(1, 8, 32, 0.6);
+      background: rgba(1, 8, 32, 0.7);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(58,180,242,0.15);
     }
     .nav-logo {
       font-family: 'Dancing Script', cursive;
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: var(--neon-white);
-      text-shadow: 0 0 18px rgba(58,180,242,0.9), 0 0 40px rgba(58,180,242,0.4);
-      letter-spacing: 1px;
+      text-shadow: 0 0 18px rgba(58,180,242,0.9);
     }
     .nav-links {
       display: flex;
-      gap: 36px;
+      gap: 28px;
       list-style: none;
     }
     .nav-links a {
       color: var(--text-dim);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      transition: color 0.3s, text-shadow 0.3s;
+      transition: color 0.3s;
     }
     .nav-links a:hover {
       color: var(--neon-blue);
-      text-shadow: 0 0 10px rgba(58,180,242,0.7);
     }
 
     /* ===== HERO ===== */
     .hero {
-      min-height: 100vh;
+      min-height: 85vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 24px 60px;
+      padding: 80px 20px 40px;
       position: relative;
     }
     .hero-inner { position: relative; }
 
-    /* Glowing oval behind logo text */
     .hero-glow-oval {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
-      height: 220px;
+      width: 400px;
+      height: 180px;
       background: radial-gradient(ellipse, rgba(58,180,242,0.25) 0%, transparent 70%);
       filter: blur(30px);
       animation: pulseGlow 4s ease-in-out infinite;
@@ -176,65 +173,27 @@
       50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
     }
 
-    /* Swordfish decoration */
-    .hero-fish {
+    .hero-fish, .hero-octopus {
       position: absolute;
-      left: -80px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 220px;
-      opacity: 0.35;
+      width: 140px;
+      opacity: 0.3;
       animation: fishFloat 6s ease-in-out infinite;
     }
-    .hero-octopus {
-      position: absolute;
-      right: -60px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 160px;
-      opacity: 0.3;
-      animation: fishFloat 7s ease-in-out infinite reverse;
-    }
+    .hero-fish { left: -40px; top: 50%; transform: translateY(-50%); }
+    .hero-octopus { right: -40px; top: 50%; transform: translateY(-50%); animation-direction: reverse; }
     @keyframes fishFloat {
       0%, 100% { transform: translateY(-50%) rotate(-3deg); }
-      50%       { transform: translateY(calc(-50% - 15px)) rotate(3deg); }
+      50%       { transform: translateY(calc(-50% - 10px)) rotate(3deg); }
+    }
+    @media (max-width: 900px) {
+      .hero-fish, .hero-octopus { display: none; }
     }
 
     .hero-title {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(4rem, 10vw, 8rem);
+      font-size: clamp(3rem, 8vw, 6rem);
       color: #fff;
-      line-height: 1;
-      text-shadow:
-        0 0 20px rgba(58,180,242,1),
-        0 0 60px rgba(58,180,242,0.7),
-        0 0 120px rgba(58,180,242,0.3);
-      animation: titleFlicker 5s ease-in-out infinite;
-      position: relative;
-    }
-    @keyframes titleFlicker {
-      0%, 92%, 100% { opacity: 1; }
-      93%            { opacity: 0.85; }
-      95%            { opacity: 1; }
-    }
-
-    .hero-sub {
-      margin-top: 10px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 6px;
-      color: var(--neon-white);
-      text-transform: uppercase;
-      font-weight: 300;
-      opacity: 0.85;
-    }
-    .hero-arabic {
-      font-family: 'Tajawal', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 3px;
-      color: var(--neon-white);
-      opacity: 0.85;
-      margin-right: 8px;
+      text-shadow: 0 0 20px rgba(58,180,242,1), 0 0 40px rgba(58,180,242,0.5);
     }
     .hero-sub-row {
       display: flex;
@@ -243,43 +202,40 @@
       gap: 10px;
       margin-top: 8px;
     }
+    .hero-sub, .hero-arabic {
+      font-size: 0.9rem;
+      letter-spacing: 4px;
+      color: var(--neon-white);
+      opacity: 0.85;
+    }
+    .hero-arabic { font-family: 'Tajawal', sans-serif; letter-spacing: 2px; }
     .dot-divider {
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
       background: var(--neon-blue);
-      box-shadow: 0 0 8px var(--neon-blue);
     }
-
     .hero-tagline {
-      margin-top: 28px;
-      font-size: 1rem;
+      margin-top: 20px;
+      font-size: 0.9rem;
       color: var(--text-dim);
-      font-weight: 300;
-      letter-spacing: 1px;
       font-style: italic;
     }
-
     .hero-cta {
-      margin-top: 42px;
+      margin-top: 30px;
       display: inline-block;
-      padding: 14px 42px;
+      padding: 10px 32px;
       background: transparent;
       border: 1.5px solid var(--neon-blue);
       color: var(--neon-blue);
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 3px;
-      text-transform: uppercase;
       text-decoration: none;
-      border-radius: 2px;
-      transition: all 0.4s;
-      box-shadow: 0 0 18px rgba(58,180,242,0.2), inset 0 0 18px rgba(58,180,242,0.05);
+      transition: all 0.3s;
     }
     .hero-cta:hover {
       background: rgba(58,180,242,0.12);
-      box-shadow: 0 0 35px rgba(58,180,242,0.5), inset 0 0 25px rgba(58,180,242,0.1);
       color: #fff;
     }
 
@@ -287,9 +243,9 @@
     .divider {
       display: flex;
       align-items: center;
-      gap: 18px;
-      margin: 60px auto;
-      max-width: 500px;
+      gap: 15px;
+      margin: 40px auto;
+      max-width: 400px;
     }
     .divider-line {
       flex: 1;
@@ -297,262 +253,202 @@
       background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
     }
     .divider-icon {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: var(--neon-blue);
-      text-shadow: 0 0 12px var(--neon-blue);
     }
 
     /* ===== SECTION TITLE ===== */
     .section-title {
       text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 35px;
     }
     .section-title h2 {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-size: clamp(2rem, 5vw, 3rem);
       color: var(--neon-white);
-      text-shadow: 0 0 20px rgba(58,180,242,0.6), 0 0 50px rgba(58,180,242,0.25);
     }
     .section-title p {
-      margin-top: 10px;
-      font-size: 0.82rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
+      margin-top: 8px;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
       color: var(--text-dim);
-      font-weight: 300;
     }
 
-    /* ===== MENU SECTION ===== */
+    /* ===== MENU SECTION - COMPACT & MODERN ===== */
     #menu {
-      padding: 80px 0 100px;
+      padding: 50px 0 70px;
       position: relative;
-    }
-    #menu::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(58,180,242,0.4), transparent);
     }
 
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    /* على الحاسوب: 4 أطباق في الصف */
+    @media (min-width: 900px) {
+      .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+    }
+
+    /* على التابلت: 3 أطباق */
+    @media (min-width: 600px) and (max-width: 899px) {
+      .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+    }
+
+    /* على الهاتف: طبقين في الصف */
+    @media (max-width: 599px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
     }
 
     .menu-card {
       background: linear-gradient(135deg, rgba(4,26,94,0.5) 0%, rgba(2,13,46,0.8) 100%);
       border: 1px solid rgba(58,180,242,0.15);
-      border-radius: 4px;
+      border-radius: 12px;
       overflow: hidden;
-      position: relative;
-      transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+      transition: transform 0.3s, border-color 0.3s;
       cursor: pointer;
     }
-    .menu-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(58,180,242,0.06) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.35s;
-    }
     .menu-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(58,180,242,0.5);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 25px rgba(58,180,242,0.15);
+      transform: translateY(-4px);
+      border-color: rgba(58,180,242,0.4);
     }
-    .menu-card:hover::before { opacity: 1; }
 
-    /* Gold accent top bar */
-    .menu-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.35s;
-    }
-    .menu-card:hover::after { opacity: 1; }
-
-    /* Image styling */
     .card-img {
       width: 100%;
-      aspect-ratio: 4/3;
-      background: linear-gradient(135deg, rgba(10,58,143,0.6) 0%, rgba(4,26,94,0.8) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      aspect-ratio: 1 / 1;
       overflow: hidden;
+      background: #031030;
     }
     .card-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform 0.3s ease;
     }
     .menu-card:hover .card-img img {
       transform: scale(1.05);
     }
-    .card-img::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 40%, rgba(58,180,242,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(26,109,212,0.1) 0%, transparent 40%);
-      pointer-events: none;
-    }
 
     .card-body {
-      padding: 22px 24px 26px;
+      padding: 12px 10px 14px;
+      text-align: center;
     }
     .card-name {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.05rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--neon-white);
-      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .card-price {
-      margin-top: 10px;
+      margin-top: 6px;
       display: flex;
       align-items: baseline;
-      gap: 6px;
+      justify-content: center;
+      gap: 3px;
     }
     .price-amount {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--gold);
-      text-shadow: 0 0 12px rgba(240,192,96,0.5);
     }
     .price-currency {
-      font-size: 0.78rem;
+      font-size: 0.65rem;
       color: var(--gold-light);
-      opacity: 0.7;
-      letter-spacing: 1px;
-    }
-    .card-divider {
-      margin-top: 14px;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(58,180,242,0.3), transparent);
+      opacity: 0.8;
     }
 
     /* ===== MAP SECTION ===== */
     #location {
-      padding: 80px 0 100px;
-      position: relative;
+      padding: 50px 0 70px;
     }
     .map-container {
-      border-radius: 4px;
+      border-radius: 12px;
       overflow: hidden;
       border: 1px solid rgba(58,180,242,0.2);
-      box-shadow: 0 0 60px rgba(0,0,0,0.6), 0 0 30px rgba(58,180,242,0.08);
       position: relative;
     }
     .map-container iframe {
       width: 100%;
-      height: 420px;
+      height: 320px;
       border: none;
       display: block;
       filter: hue-rotate(180deg) invert(0.9) saturate(0.6);
     }
     .map-overlay-label {
       position: absolute;
-      top: 18px;
-      left: 18px;
+      top: 12px;
+      left: 12px;
       background: rgba(2,13,46,0.85);
       border: 1px solid rgba(58,180,242,0.3);
-      padding: 10px 18px;
-      border-radius: 3px;
-      backdrop-filter: blur(10px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
     }
     .map-overlay-label span {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.3rem;
+      font-size: 1rem;
       color: var(--neon-white);
-      text-shadow: 0 0 10px rgba(58,180,242,0.6);
     }
 
     /* ===== FOOTER ===== */
     footer {
       background: rgba(1, 8, 32, 0.9);
       border-top: 1px solid rgba(58,180,242,0.12);
-      padding: 48px 40px;
+      padding: 30px 20px;
       text-align: center;
-      position: relative;
     }
     .footer-logo {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.6rem;
+      font-size: 2rem;
       color: var(--neon-white);
-      text-shadow: 0 0 20px rgba(58,180,242,0.7), 0 0 50px rgba(58,180,242,0.3);
       display: block;
-      margin-bottom: 8px;
     }
     .footer-sub {
-      font-size: 0.78rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
       color: var(--text-dim);
-      font-weight: 300;
     }
     .footer-bottom {
-      margin-top: 36px;
-      font-size: 0.72rem;
+      margin-top: 20px;
+      font-size: 0.6rem;
       color: rgba(160,200,232,0.3);
-      letter-spacing: 1px;
     }
 
     /* ===== SCROLL REVEAL ===== */
     .reveal {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* ===== MOBILE ===== */
-    @media (max-width: 680px) {
-      nav { padding: 14px 20px; }
-      .nav-links { gap: 20px; }
-      .nav-links a { font-size: 0.72rem; letter-spacing: 1px; }
-      .hero-fish, .hero-octopus { display: none; }
-      .menu-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .card-body { padding: 14px 16px 18px; }
-    }
-    @media (max-width: 420px) {
-      .menu-grid { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Ocean background layers -->
   <div class="ocean-bg"></div>
   <div id="particles"></div>
 
-  <!-- Animated waves at bottom -->
-  <svg class="waves-svg" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path class="wave-path" fill="rgba(58,180,242,0.5)"
-      d="M0,80 C200,20 400,140 600,80 C800,20 1000,140 1200,80 L1200,200 L0,200 Z"/>
-    <path class="wave-path" fill="rgba(26,109,212,0.4)"
-      d="M0,100 C250,40 450,160 700,100 C900,40 1100,160 1200,100 L1200,200 L0,200 Z"/>
-    <path class="wave-path" fill="rgba(4,26,94,0.6)"
-      d="M0,120 C300,70 500,170 800,120 C1000,70 1150,160 1200,120 L1200,200 L0,200 Z"/>
+  <svg class="waves-svg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+    <path class="wave-path" fill="rgba(58,180,242,0.5)" d="M0,80 C200,20 400,140 600,80 C800,20 1000,140 1200,80 L1200,200 L0,200 Z"/>
+    <path class="wave-path" fill="rgba(26,109,212,0.4)" d="M0,100 C250,40 450,160 700,100 C900,40 1100,160 1200,100 L1200,200 L0,200 Z"/>
+    <path class="wave-path" fill="rgba(4,26,94,0.6)" d="M0,120 C300,70 500,170 800,120 C1000,70 1150,160 1200,120 L1200,200 L0,200 Z"/>
   </svg>
 
-  <!-- NAV -->
   <nav>
     <span class="nav-logo">La Vague</span>
     <ul class="nav-links">
@@ -562,43 +458,25 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="hero">
     <div class="wrapper">
       <div class="hero-inner">
-        <!-- SVG Swordfish left -->
-        <svg class="hero-fish" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="hero-fish" viewBox="0 0 300 200">
           <g stroke="#3ab4f2" stroke-width="1.5" fill="none" opacity="0.9">
             <ellipse cx="160" cy="110" rx="100" ry="32" fill="rgba(10,58,143,0.3)" stroke="#3ab4f2"/>
             <path d="M60,110 L5,80" stroke-width="2.5"/>
             <path d="M255,110 C275,85 290,70 300,60 M255,110 C275,130 290,148 300,160"/>
-            <path d="M130,78 C140,40 170,30 185,78"/>
-            <path d="M155,110 C160,140 175,155 190,148"/>
             <circle cx="80" cy="106" r="5" fill="#3ab4f2"/>
-            <path d="M130,80 L125,140" opacity="0.4"/>
-            <path d="M155,78 L150,142" opacity="0.4"/>
-            <path d="M180,80 L175,140" opacity="0.4"/>
           </g>
         </svg>
-
-        <!-- SVG Octopus right -->
-        <svg class="hero-octopus" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="hero-octopus" viewBox="0 0 200 220">
           <g stroke="#3ab4f2" stroke-width="1.4" fill="none" opacity="0.9">
             <ellipse cx="100" cy="70" rx="55" ry="48" fill="rgba(10,58,143,0.3)" stroke="#3ab4f2"/>
             <circle cx="85" cy="65" r="7" fill="rgba(58,180,242,0.4)"/>
             <circle cx="115" cy="65" r="7" fill="rgba(58,180,242,0.4)"/>
-            <path d="M60,105 C45,130 30,150 35,180 C38,200 50,210 45,220" stroke-linecap="round"/>
-            <path d="M75,112 C65,140 60,165 70,190 C75,205 88,210 85,222" stroke-linecap="round"/>
-            <path d="M90,115 C88,145 90,170 100,195" stroke-linecap="round"/>
-            <path d="M105,115 C108,145 115,170 125,195" stroke-linecap="round"/>
-            <path d="M118,112 C128,140 138,165 132,190" stroke-linecap="round"/>
-            <path d="M132,105 C148,130 165,150 160,180" stroke-linecap="round"/>
-            <circle cx="50" cy="145" r="2.5" fill="rgba(58,180,242,0.4)"/>
-            <circle cx="43" cy="165" r="2.5" fill="rgba(58,180,242,0.4)"/>
-            <circle cx="125" cy="145" r="2.5" fill="rgba(58,180,242,0.4)"/>
+            <path d="M60,105 C45,130 30,150 35,180 M75,112 C65,140 60,165 70,190 M90,115 C88,145 90,170 100,195 M105,115 C108,145 115,170 125,195 M118,112 C128,140 138,165 132,190 M132,105 C148,130 165,150 160,180" stroke-linecap="round"/>
           </g>
         </svg>
-
         <div class="hero-glow-oval"></div>
         <h1 class="hero-title">La Vague</h1>
         <div class="hero-sub-row">
@@ -606,213 +484,143 @@
           <span class="dot-divider"></span>
           <span class="hero-arabic">مطعم</span>
         </div>
-        <!-- النجوم الخمسة تمت إزالتها -->
-        <p class="hero-tagline">Saveurs de la mer · </p>
+        <p class="hero-tagline">Saveurs de la mer</p>
         <a href="#menu" class="hero-cta">Voir le Menu</a>
       </div>
     </div>
   </section>
 
-  <!-- MENU SECTION -->
+  <!-- MENU SECTION - COMPACT -->
   <section id="menu">
     <div class="wrapper">
       <div class="divider">
         <div class="divider-line"></div>
-        <span class="divider-icon">⭒</span>
+        <span class="divider-icon">⚓</span>
         <div class="divider-line"></div>
       </div>
       <div class="section-title reveal">
         <h2>Notre Menu</h2>
-        <p>Fraîcheur de la mer · </p>
+        <p>Fraîcheur de la mer · خيرات البحر</p>
       </div>
 
       <div class="menu-grid">
-
         <!-- Saumon -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://l.top4top.io/p_3810p29g15.jpg" alt="Saumon">
-          </div>
+          <div class="card-img"><img src="https://l.top4top.io/p_3810p29g15.jpg" alt="Saumon"></div>
           <div class="card-body">
             <div class="card-name">Saumon</div>
-            <div class="card-price">
-              <span class="price-amount">3 000</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">3 000</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Dorade -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://g.top4top.io/p_3810xbxig5.jpg" alt="Dorade">
-          </div>
+          <div class="card-img"><img src="https://g.top4top.io/p_3810xbxig5.jpg" alt="Dorade"></div>
           <div class="card-body">
             <div class="card-name">Dorade</div>
-            <div class="card-price">
-              <span class="price-amount">1 400</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">1 400</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Espadon -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://h.top4top.io/p_3810fyict6.jpg" alt="Espadon">
-          </div>
+          <div class="card-img"><img src="https://h.top4top.io/p_3810fyict6.jpg" alt="Espadon"></div>
           <div class="card-body">
             <div class="card-name">Espadon</div>
-            <div class="card-price">
-              <span class="price-amount">2 300</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">2 300</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
-        <!-- Rouget et Merlan -->
+        <!-- Rouget & Merlan -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://j.top4top.io/p_3810ghsr33.jpg" alt="Rouget et merlan">
-          </div>
+          <div class="card-img"><img src="https://j.top4top.io/p_3810ghsr33.jpg" alt="Rouget et merlan"></div>
           <div class="card-body">
-            <div class="card-name">Rouget &amp; Merlan</div>
-            <div class="card-price">
-              <span class="price-amount">1 600</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-name">Rouget & Merlan</div>
+            <div class="card-price"><span class="price-amount">1 600</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Loupe de mer -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://j.top4top.io/p_38102lioz8.jpg" alt="Loupe de mer">
-          </div>
+          <div class="card-img"><img src="https://j.top4top.io/p_38102lioz8.jpg" alt="Loupe de mer"></div>
           <div class="card-body">
             <div class="card-name">Loupe de mer</div>
-            <div class="card-price">
-              <span class="price-amount">1 500</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">1 500</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Crevette royale -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://e.top4top.io/p_3810akjj23.jpg" alt="Crevette royale">
-          </div>
+          <div class="card-img"><img src="https://e.top4top.io/p_3810akjj23.jpg" alt="Crevette royale"></div>
           <div class="card-body">
             <div class="card-name">Crevette royale</div>
-            <div class="card-price">
-              <span class="price-amount">2 500</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">2 500</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Mirou -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://k.top4top.io/p_3810ivuz99.jpg" alt="Mirou">
-          </div>
+          <div class="card-img"><img src="https://k.top4top.io/p_3810ivuz99.jpg" alt="Mirou"></div>
           <div class="card-body">
             <div class="card-name">Mirou</div>
-            <div class="card-price">
-              <span class="price-amount">2 800</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">2 800</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Pajoux -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://i.top4top.io/p_3810gw2ft2.jpg" alt="Pajoux">
-          </div>
+          <div class="card-img"><img src="https://i.top4top.io/p_3810gw2ft2.jpg" alt="Pajoux"></div>
           <div class="card-body">
             <div class="card-name">Pajoux</div>
-            <div class="card-price">
-              <span class="price-amount">1 300</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">1 300</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Chien de mer -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://d.top4top.io/p_381023dn42.jpg" alt="Chien de mer">
-          </div>
+          <div class="card-img"><img src="https://d.top4top.io/p_381023dn42.jpg" alt="Chien de mer"></div>
           <div class="card-body">
             <div class="card-name">Chien de mer</div>
-            <div class="card-price">
-              <span class="price-amount">1 800</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">1 800</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- La lotte -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://i.top4top.io/p_3810bztla7.jpg" alt="La lotte">
-          </div>
+          <div class="card-img"><img src="https://i.top4top.io/p_3810bztla7.jpg" alt="La lotte"></div>
           <div class="card-body">
             <div class="card-name">La lotte</div>
-            <div class="card-price">
-              <span class="price-amount">1 600</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">1 600</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Calamar -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://c.top4top.io/p_3810nkiwq1.jpg" alt="Calamar">
-          </div>
+          <div class="card-img"><img src="https://c.top4top.io/p_3810nkiwq1.jpg" alt="Calamar"></div>
           <div class="card-body">
             <div class="card-name">Calamar</div>
-            <div class="card-price">
-              <span class="price-amount">2 200</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">2 200</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
         <!-- Sardine -->
         <div class="menu-card reveal">
-          <div class="card-img">
-            <img src="https://k.top4top.io/p_38101z5qz4.jpg" alt="Sardine">
-          </div>
+          <div class="card-img"><img src="https://k.top4top.io/p_38101z5qz4.jpg" alt="Sardine"></div>
           <div class="card-body">
             <div class="card-name">Sardine</div>
-            <div class="card-price">
-              <span class="price-amount">600</span>
-              <span class="price-currency">DA</span>
-            </div>
-            <div class="card-divider"></div>
+            <div class="card-price"><span class="price-amount">600</span><span class="price-currency">DA</span></div>
           </div>
         </div>
-
-      </div><!-- /menu-grid -->
+        <!-- Pagre -->
+        <div class="menu-card reveal">
+          <div class="card-img"><img src="https://l.top4top.io/p_3810hqqsd10.jpg" alt="Pagre"></div>
+          <div class="card-body">
+            <div class="card-name">Pagre</div>
+            <div class="card-price"><span class="price-amount">1 700</span><span class="price-currency">DA</span></div>
+          </div>
+        </div>
+        <!-- Dorade sauvage et loupe de mer -->
+        <div class="menu-card reveal">
+          <div class="card-img"><img src="https://f.top4top.io/p_381083a384.jpg" alt="Dorade sauvage et loupe de mer"></div>
+          <div class="card-body">
+            <div class="card-name">Dorade sauvage</div>
+            <div class="card-price"><span class="price-amount">2 200</span><span class="price-currency">DA</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- LOCATION SECTION -->
+  <!-- LOCATION -->
   <section id="location">
     <div class="wrapper">
       <div class="divider">
@@ -825,26 +633,15 @@
         <p>Notre emplacement · موقعنا</p>
       </div>
       <div class="map-container reveal">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d3.042!3d36.752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb326bf4c0af3%3A0xbc9b4d3c6adf2a4e!2sLa%20Vague%20Restaurant!5e0!3m2!1sfr!2sdz!4v1700000000000"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="La Vague Restaurant — Carte">
-        </iframe>
-        <div class="map-overlay-label">
-          <span>La Vague Restaurant</span>
-        </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d3.042!3d36.752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb326bf4c0af3%3A0xbc9b4d3c6adf2a4e!2sLa%20Vague%20Restaurant!5e0!3m2!1sfr!2sdz!4v1700000000000" allowfullscreen loading="lazy"></iframe>
+        <div class="map-overlay-label"><span>La Vague Restaurant</span></div>
       </div>
-      <div style="text-align:center; margin-top:22px;">
-        <a href="https://maps.app.goo.gl/t728Cw4gogcKbjdv5" target="_blank" rel="noopener" class="hero-cta">
-          Ouvrir dans Google Maps
-        </a>
+      <div style="text-align:center; margin-top:20px;">
+        <a href="https://maps.app.goo.gl/t728Cw4gogcKbjdv5" target="_blank" class="hero-cta">Ouvrir dans Google Maps</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <span class="footer-logo">La Vague</span>
     <span class="footer-sub">Restaurant · مطعم</span>
@@ -852,32 +649,19 @@
   </footer>
 
   <script>
-    /* ── BUBBLES ── */
     const container = document.getElementById('particles');
     for (let i = 0; i < 28; i++) {
       const b = document.createElement('div');
       b.className = 'bubble';
-      const size = Math.random() * 60 + 10;
-      b.style.cssText = `
-        width:${size}px; height:${size}px;
-        left:${Math.random()*100}%;
-        animation-duration:${Math.random()*18+10}s;
-        animation-delay:-${Math.random()*20}s;
-      `;
+      const size = Math.random() * 50 + 8;
+      b.style.cssText = `width:${size}px; height:${size}px; left:${Math.random()*100}%; animation-duration:${Math.random()*15+8}s; animation-delay:-${Math.random()*20}s;`;
       container.appendChild(b);
     }
 
-    /* ── SCROLL REVEAL ── */
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 60);
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 50); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
-
 </body>
 </html>
