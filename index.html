@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>La Vague | Restaurant de la Mer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Tajawal:wght@400;500;700&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --deep-ocean: #010a1a;
+      --ocean-mid: #03102e;
+      --ocean-light: #062255;
+      --glow-blue: #1a6fd4;
+      --neon-blue: #3ab4f2;
+      --neon-blue-dark: #1a8fd4;
+      --neon-white: #e8f6ff;
+      --gold: #f0c060;
+      --gold-dark: #d4a030;
+      --gold-light: #ffe8a0;
+      --text-white: #ffffff;
+      --text-dim: #a0c8e8;
+      --glass-bg: rgba(1, 10, 26, 0.55);
+    }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-white);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ===== OCEAN ANIMATED BACKGROUND ===== */
+    .ocean-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(ellipse at 30% 40%, rgba(26,111,212,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 70%, rgba(58,180,242,0.1) 0%, transparent 50%),
+                  linear-gradient(135deg, #010a1a 0%, #03102e 40%, #041a4a 100%);
+    }
+
+    /* Animated wave lines */
+    .ocean-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Cpath fill='none' stroke='%233ab4f2' stroke-width='1.5' opacity='0.08' d='M0,200 C200,150 400,250 600,200 C800,150 1000,250 1200,200'/%3E%3Cpath fill='none' stroke='%233ab4f2' stroke-width='1' opacity='0.05' d='M0,300 C200,250 400,350 600,300 C800,250 1000,350 1200,300'/%3E%3Cpath fill='none' stroke='%231a6fd4' stroke-width='1' opacity='0.06' d='M0,400 C200,350 400,450 600,400 C800,350 1000,450 1200,400'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 1200px 800px;
+      animation: waveMove 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes waveMove {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 1200px; }
+    }
+
+    /* ===== BUBBLES ===== */
+    .bubbles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(58,180,242,0.2) 0%, rgba(58,180,242,0.05) 70%);
+      animation: bubbleRise linear infinite;
+    }
+    @keyframes bubbleRise {
+      0% { transform: translateY(100vh) scale(0.3); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+    }
+
+    /* ===== SHARK LOGO BACKGROUND ===== */
+    .shark-bg {
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      font-size: 180px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 1;
+      transform: scaleX(-1);
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .wrapper {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: rgba(1, 10, 26, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(58,180,242,0.2);
+    }
+    .logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--neon-white);
+      text-shadow: 0 0 20px rgba(58,180,242,0.8), 0 0 40px rgba(58,180,242,0.4);
+      letter-spacing: 1px;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-menu a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .nav-menu a:hover {
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px rgba(58,180,242,0.6);
+    }
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      background: rgba(58,180,242,0.12);
+      padding: 6px 14px;
+      border-radius: 40px;
+      backdrop-filter: blur(8px);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 30px;
+      transition: 0.2s;
+      font-family: 'Raleway', sans-serif;
+    }
+    .lang-btn.active {
+      background: var(--neon-blue);
+      color: var(--deep-ocean);
+      box-shadow: 0 0 12px rgba(58,180,242,0.5);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+    }
+    .hero-inner { position: relative; }
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 550px;
+      height: 240px;
+      background: radial-gradient(ellipse, rgba(58,180,242,0.2) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: glowPulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+    }
+    .hero-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(4rem, 12vw, 8rem);
+      color: #fff;
+      text-shadow: 0 0 25px rgba(58,180,242,0.9), 0 0 60px rgba(58,180,242,0.5), 0 0 100px rgba(58,180,242,0.2);
+      animation: titleGlow 4s ease-in-out infinite;
+    }
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 25px rgba(58,180,242,0.9), 0 0 60px rgba(58,180,242,0.5); }
+      50% { text-shadow: 0 0 35px rgba(58,180,242,1), 0 0 90px rgba(58,180,242,0.7); }
+    }
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .hero-badge span {
+      font-size: 1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: var(--neon-white);
+    }
+    .stars {
+      margin-top: 20px;
+    }
+    .stars i {
+      color: var(--gold);
+      font-size: 0.9rem;
+      margin: 0 2px;
+      text-shadow: 0 0 8px rgba(240,192,96,0.5);
+    }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 12px 38px;
+      background: transparent;
+      border: 1.5px solid var(--neon-blue);
+      color: var(--neon-blue);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .hero-cta:hover {
+      background: rgba(58,180,242,0.12);
+      box-shadow: 0 0 25px rgba(58,180,242,0.4);
+      color: #fff;
+    }
+
+    /* ===== SECTION STYLES ===== */
+    section {
+      padding: 70px 0;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .section-title h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      color: var(--neon-white);
+      text-shadow: 0 0 20px rgba(58,180,242,0.5);
+    }
+    .section-title p {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+    .divider-wave {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px auto 50px;
+      max-width: 400px;
+    }
+    .divider-wave .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    }
+    .divider-wave i {
+      color: var(--neon-blue);
+      font-size: 1.2rem;
+    }
+
+    /* ===== MENU GRID ===== */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .menu-card {
+      background: linear-gradient(135deg, rgba(4,26,94,0.45) 0%, rgba(2,13,46,0.75) 100%);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(58,180,242,0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .menu-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(58,180,242,0.4);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(58,180,242,0.15);
+    }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #0a2a4a, #041a3a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .card-img-placeholder {
+      text-align: center;
+      color: rgba(160,200,232,0.4);
+    }
+    .card-img-placeholder i {
+      font-size: 3rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .card-img-placeholder span {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .card-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--neon-white);
+      font-family: 'Raleway', sans-serif;
+    }
+    .card-price {
+      margin-top: 10px;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+    .price-amount {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .price-currency {
+      font-size: 0.8rem;
+      color: var(--gold-light);
+    }
+    .menu-note {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      line-height: 1.8;
+      font-size: 1rem;
+      color: var(--text-dim);
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .gallery-item {
+      background: rgba(4,26,94,0.3);
+      border-radius: 16px;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(58,180,242,0.15);
+      transition: 0.3s;
+    }
+    .gallery-item i {
+      font-size: 3rem;
+      color: rgba(58,180,242,0.4);
+    }
+    .gallery-item:hover {
+      border-color: rgba(58,180,242,0.4);
+      background: rgba(58,180,242,0.05);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+    .contact-card {
+      background: rgba(4,26,94,0.3);
+      backdrop-filter: blur(8px);
+      padding: 28px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(58,180,242,0.15);
+    }
+    .contact-card i {
+      font-size: 2.2rem;
+      color: var(--neon-blue);
+      margin-bottom: 15px;
+    }
+    .contact-card h3 {
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .contact-card p, .contact-card a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .map-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 25px;
+      background: transparent;
+      border: 1px solid var(--neon-blue);
+      color: var(--neon-blue);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      transition: 0.3s;
+    }
+    .map-link:hover {
+      background: rgba(58,180,242,0.1);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(1, 10, 26, 0.9);
+      border-top: 1px solid rgba(58,180,242,0.1);
+      padding: 50px 24px 30px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: var(--neon-white);
+    }
+    .footer-copy {
+      margin-top: 20px;
+      font-size: 0.7rem;
+      color: rgba(160,200,232,0.3);
+    }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RTL FOR ARABIC ===== */
+    body[data-lang="ar"] .fr-text { display: none; }
+    body[data-lang="fr"] .ar-text { display: none; }
+    body[data-lang="ar"] .ar-text { display: inline-block; }
+    body[data-lang="ar"] .section-title p, 
+    body[data-lang="ar"] .about-content,
+    body[data-lang="ar"] .contact-card p {
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper { padding: 0 16px; }
+      nav { padding: 12px 20px; }
+      .nav-menu { gap: 16px; }
+      .nav-menu a { font-size: 0.7rem; letter-spacing: 1px; }
+      section { padding: 50px 0; }
+      .menu-grid { gap: 16px; }
+    }
+  </style>
+</head>
+<body data-lang="fr">
+
+  <div class="ocean-bg"></div>
+  <div class="bubbles" id="bubbles"></div>
+  <div class="shark-bg">🦈</div>
+
+  <nav>
+    <div class="logo">La Vague</div>
+    <ul class="nav-menu">
+      <li><a href="#home" class="fr-text">Accueil</a><a href="#home" class="ar-text">الرئيسية</a></li>
+      <li><a href="#menu" class="fr-text">Menu</a><a href="#menu" class="ar-text">القائمة</a></li>
+      <li><a href="#about" class="fr-text">À propos</a><a href="#about" class="ar-text">عن المطعم</a></li>
+      <li><a href="#gallery" class="fr-text">Galerie</a><a href="#gallery" class="ar-text">معرض</a></li>
+      <li><a href="#contact" class="fr-text">Contact</a><a href="#contact" class="ar-text">اتصل</a></li>
+    </ul>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HOME / HERO -->
+    <section id="home" class="hero">
+      <div class="wrapper">
+        <div class="hero-inner">
+          <div class="hero-glow"></div>
+          <h1 class="hero-title">La Vague</h1>
+          <div class="hero-badge">
+            <span class="fr-text">Restaurant de la Mer</span>
+            <span class="ar-text">مطعم البحر</span>
+          </div>
+          <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="fr-text" style="margin-top: 20px; color: #a0c8e8;">Fraîcheur · Saveur · Excellence</p>
+          <p class="ar-text" style="margin-top: 20px; color: #a0c8e8;">نضارة · طعم · تميز</p>
+          <a href="#menu" class="hero-cta fr-text">Découvrir le Menu</a>
+          <a href="#menu" class="hero-cta ar-text">اكتشف القائمة</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu">
+      <div class="wrapper">
+        <div class="divider-wave">
+          <div class="line"></div>
+          <i class="fas fa-fish"></i>
+          <div class="line"></div>
+        </div>
+        <div class="section-title reveal">
+          <h2 class="fr-text">Notre Menu</h2>
+          <h2 class="ar-text">قائمتنا</h2>
+          <p>✦ Poisson frais quotidien ✦</p>
+        </div>
+        <div class="menu-grid" id="menuGrid"></div>
+        <div class="menu-note fr-text">* Dorade sauvage et Loupe de mer : vendus au poids</div>
+        <div class="menu-note ar-text">* الدورادا البرية ولبوس البحر: تباع حسب الوزن</div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+      <div class="wrapper">
+        <div class="divider-wave">
+          <div class="line"></div>
+          <i class="fas fa-anchor"></i>
+          <div class="line"></div>
+        </div>
+        <div class="section-title reveal">
+          <h2 class="fr-text">À propos</h2>
+          <h2 class="ar-text">عن المطعم</h2>
+        </div>
+        <div class="about-content reveal">
+          <p class="fr-text">Depuis plus d'une décennie, La Vague incarne la passion des produits de la mer. Notre équipe sélectionne chaque jour le meilleur des côtes méditerranéennes. Entre tradition et créativité, chaque assiette raconte une histoire d'amour pour l'océan. Venez vivre une expérience unique où la fraîcheur rencontre l'excellence.</p>
+          <p class="ar-text">لأكثر من عقد، تجسّد "لا فاغ" شغف منتجات البحر. يختار فريقنا يومياً أفضل ما تقدمه السواحل المتوسطية. بين التقاليد والإبداع، كل طبق يروي قصة حب للمحيط. تعال وعش تجربة فريدة حيث تلتقي النضارة بالتميز.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery">
+      <div class="wrapper">
+        <div class="divider-wave">
+          <div class="line"></div>
+          <i class="fas fa-camera"></i>
+          <div class="line"></div>
+        </div>
+        <div class="section-title reveal">
+          <h2 class="fr-text">Galerie</h2>
+          <h2 class="ar-text">معرض الصور</h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item"><i class="fas fa-fish"></i></div>
+          <div class="gallery-item"><i class="fas fa-utensils"></i></div>
+          <div class="gallery-item"><i class="fas fa-water"></i></div>
+          <div class="gallery-item"><i class="fas fa-ship"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT + MAP SECTION -->
+    <section id="contact">
+      <div class="wrapper">
+        <div class="divider-wave">
+          <div class="line"></div>
+          <i class="fas fa-map-marker-alt"></i>
+          <div class="line"></div>
+        </div>
+        <div class="section-title reveal">
+          <h2 class="fr-text">Contact & Accès</h2>
+          <h2 class="ar-text">الاتصال والموقع</h2>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <i class="fas fa-phone-alt"></i>
+            <h3 class="fr-text">Téléphone</h3>
+            <h3 class="ar-text">الهاتف</h3>
+            <p>+213 5XX XX XX XX</p>
+          </div>
+          <div class="contact-card">
+            <i class="fas fa-envelope"></i>
+            <h3 class="fr-text">Email</h3>
+            <h3 class="ar-text">البريد الإلكتروني</h3>
+            <p>contact@lavague.dz</p>
+          </div>
+          <div class="contact-card">
+            <i class="fas fa-clock"></i>
+            <h3 class="fr-text">Horaires</h3>
+            <h3 class="ar-text">ساعات العمل</h3>
+            <p>Lun-Dim : 12h – 23h</p>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 35px;">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3192.5!2d3.042!3d36.752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sdz!4v1700000000000" width="100%" height="300" style="border:1px solid rgba(58,180,242,0.2); border-radius:16px;" allowfullscreen="" loading="lazy"></iframe>
+          <a href="https://maps.app.goo.gl/fAnynnaCDkPLxE4L9" target="_blank" class="map-link" style="margin-top: 20px; display: inline-block;">
+            <i class="fas fa-external-link-alt"></i> <span class="fr-text">Ouvrir dans Google Maps</span><span class="ar-text">افتح في خرائط جوجل</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-logo">La Vague</div>
+    <div class="footer-copy">© 2025 La Vague Restaurant — Tous droits réservés</div>
+  </footer>
+
+  <script>
+    // ==================== MENU DATA (easily editable) ====================
+    const menuItems = [
+      { name_fr: "Saumon", name_ar: "سلمون", price: "3 000" },
+      { name_fr: "Dorade", name_ar: "دورادا", price: "1 400" },
+      { name_fr: "Espadon", name_ar: "إسبادون", price: "2 300" },
+      { name_fr: "Rouget et merlan", name_ar: "روجي ومرلان", price: "1 600" },
+      { name_fr: "Loupe de mer", name_ar: "لبوس البحر", price: "1 500" },
+      { name_fr: "Crevette royale", name_ar: "جمبري ملكي", price: "2 500" },
+      { name_fr: "Mirou", name_ar: "ميرو", price: "2 800" },
+      { name_fr: "Pajoux", name_ar: "باجو", price: "1 300" },
+      { name_fr: "Chien de mer", name_ar: "كلب البحر", price: "1 800" },
+      { name_fr: "La lotte", name_ar: "اللوط", price: "1 600" },
+      { name_fr: "Calamar", name_ar: "حبار", price: "2 200" },
+      { name_fr: "Sardine", name_ar: "سردين", price: "600" },
+      { name_fr: "Pagre", name_ar: "باجر", price: "—" }
+    ];
+
+    const fishIcons = ["fa-fish", "fa-fish", "fa-fish", "fa-fish", "fa-fish", "fa-shrimp", "fa-fish", "fa-fish", "fa-fish", "fa-fish", "fa-fish", "fa-fish", "fa-fish"];
+
+    function buildMenu() {
+      const container = document.getElementById('menuGrid');
+      if (!container) return;
+      container.innerHTML = '';
+      menuItems.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'menu-card reveal';
+        card.innerHTML = `
+          <div class="card-img">
+            <div class="card-img-placeholder">
+              <i class="fas ${fishIcons[index] || 'fa-fish'}"></i>
+              <span class="fr-text">Photo à venir</span>
+              <span class="ar-text">صورة قريباً</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-name fr-text">${item.name_fr}</div>
+            <div class="card-name ar-text">${item.name_ar}</div>
+            <div class="card-price">
+              <span class="price-amount">${item.price}</span>
+              <span class="price-currency">DA</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // ==================== BUBBLES ====================
+    function createBubbles() {
+      const container = document.getElementById('bubbles');
+      for (let i = 0; i < 35; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        const size = Math.random() * 60 + 8;
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = Math.random() * 100 + '%';
+        bubble.style.animationDuration = Math.random() * 15 + 8 + 's';
+        bubble.style.animationDelay = Math.random() * -20 + 's';
+        bubble.style.opacity = Math.random() * 0.4 + 0.1;
+        container.appendChild(bubble);
+      }
+    }
+
+    // ==================== LANGUAGE SWITCHER ====================
+    function setLanguage(lang) {
+      document.body.setAttribute('data-lang', lang);
+      localStorage.setItem('lavague_lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // ==================== SCROLL REVEAL ====================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), idx * 50);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // ==================== INIT ====================
+    buildMenu();
+    createBubbles();
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+    });
+    const savedLang = localStorage.getItem('lavague_lang');
+    if (savedLang === 'ar') setLanguage('ar');
+    else setLanguage('fr');
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.nav-menu a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>
